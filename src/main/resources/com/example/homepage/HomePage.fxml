@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.homepage.HelloController">
+   <top>
+      <HBox prefHeight="107.0" prefWidth="1200.0" style="-fx-background-color: white; -fx-border-color: #008CE3; -fx-border-width: 2;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="88.0" prefWidth="156.0">
+               <children>
+                  <ImageView fitHeight="99.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../homePageImages/logo.png" />
+                     </image></ImageView>
+               </children>
+            </VBox>
+            <Pane prefHeight="94.0" prefWidth="69.0" />
+            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="525.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-border-color: #008CE3; -fx-border-radius: 50; -fx-border-width: 2;">
+               <children>
+                  <Button fx:id="homeButton" mnemonicParsing="false" stylesheets="@CSSfiles/headerStyle.css" text="HOME">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="aboutUsButton" mnemonicParsing="false" stylesheets="@CSSfiles/headerStyle.css" text="ABOUT US">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="roomsButton" mnemonicParsing="false" onAction="#home_to_rooms" stylesheets="@CSSfiles/headerStyle.css" text="ROOMS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="servicesButton" mnemonicParsing="false" stylesheets="@CSSfiles/headerStyle.css" text="SERVICES">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="contactUsButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="129.0" stylesheets="@CSSfiles/headerStyle.css" text="CONTACT US">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="20.0" top="20.0" />
+               </HBox.margin>
+            </HBox>
+            <Pane prefHeight="94.0" prefWidth="213.0" />
+            <HBox alignment="CENTER" prefHeight="94.0" prefWidth="266.0">
+               <children>
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#home_to_signup" prefHeight="50.0" prefWidth="228.0" stylesheets="@CSSfiles/headerStyle.css" text="LOGIN / SIGN UP">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="43.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../../../homePageImages/user-profile-icon-free-png.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+      <AnchorPane prefHeight="281.0" prefWidth="1204.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="531.0" fitWidth="1205.0" layoutX="-2.0" layoutY="25.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../../homePageImages/hotel-pictures.jpg" />
+               </image>
+            </ImageView>
+            <Label fx:id="welcomeLabel" layoutX="368.0" layoutY="128.0" prefHeight="131.0" prefWidth="469.0" stylesheets="@CSSfiles/bodyHomePage.css" text="WELCOME">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" layoutX="164.0" layoutY="300.0" prefHeight="46.0" prefWidth="890.0" spacing="30.0" style="-fx-background-color: white; -fx-border-color: #008CE3; -fx-background-radius: 50; -fx-border-radius: 50; -fx-border-width: 2;">
+               <children>
+                  <TextField fx:id="destinationField" prefHeight="35.0" prefWidth="270.0" promptText="Destination, Nom d'hôtel" stylesheets="@CSSfiles/bodyHomePage.css">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <DatePicker fx:id="arriveeField" prefHeight="35.0" prefWidth="186.0" promptText="Arrivée" stylesheets="@CSSfiles/bodyHomePage.css" />
+                  <DatePicker fx:id="departField" prefHeight="33.0" prefWidth="188.0" promptText="Départ" stylesheets="@CSSfiles/bodyHomePage.css" />
+                  <Button fx:id="searchBody" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" stylesheets="@CSSfiles/bodyHomePage.css" text="SEARCH" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

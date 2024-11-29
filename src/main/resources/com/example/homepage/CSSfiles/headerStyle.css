@@ -1,0 +1,33 @@
+#homeButton, #aboutUsButton, #contactUsButton, #roomsButton, #servicesButton {
+    -fx-text-fill: #008CE3;
+    -fx-border-color: white;
+    -fx-background-color: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+
+}
+
+#loginButton{
+    -fx-text-fill: white;
+    -fx-border-color: #008CE3;
+    -fx-background-color: #008CE3;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+}
+
+
+
+#homeButton:hover, #aboutUsButton:hover, #contactUsButton:hover, #roomsButton:hover, #servicesButton:hover{
+    -fx-font-size: 14px;
+    -fx-text-fill: #1f1fa1;
+
+}
+
+#loginButton:hover{
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-background-color: #2727a1;
+}
+

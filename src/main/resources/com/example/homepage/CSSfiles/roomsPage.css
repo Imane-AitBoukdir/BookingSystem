@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&display=swap');
+
+#RoomsTitle{
+    -fx-font-family:"Inknut Antiqua" ;
+    -fx-text-fill: #164663;
+    -fx-font-size: 40;
+}
+
+#LuxuryTitle, #EconomyTitle, #FamilyTitle{
+    -fx-font-family:"Inknut Antiqua" ;
+    -fx-text-fill: #164663;
+    -fx-font-size: 20;
+}
+
+.ViewRoom{
+    -fx-text-fill: white;
+    -fx-border-color: #008CE3;
+    -fx-background-color: #008CE3;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Inknut Antiqua";
+    -fx-font-weight: bold;
+}
