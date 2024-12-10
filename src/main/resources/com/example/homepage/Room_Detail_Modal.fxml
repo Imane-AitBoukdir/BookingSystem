@@ -4,128 +4,68 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="940.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.homepage.Room_Detail_Modal">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+           prefHeight="633.0" prefWidth="940.0" style="-fx-background-color: #ffffff;"
+           xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.homepage.RoomDetailModalController">
    <children>
-      <ImageView fitHeight="349.0" fitWidth="940.0" pickOnBounds="true" StackPane.alignment="TOP_CENTER">
-         <image>
-            <Image url="@../../../homePageImages/Images/room.png" />
-         </image>
-      </ImageView>
-      <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-radius: 71; -fx-border-radius: 71; -fx-background-color: #ffffff;" text="X" StackPane.alignment="TOP_RIGHT">
+      <!-- Room Image -->
+      <ImageView fx:id="roomImage" fitHeight="349.0" fitWidth="940.0" pickOnBounds="true"
+                 StackPane.alignment="TOP_CENTER" />
+
+      <!-- Close Button -->
+      <Button fx:id="closeButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0"
+              style="-fx-background-radius: 71; -fx-border-radius: 71; -fx-background-color: #ffffff;"
+              text="X" StackPane.alignment="TOP_RIGHT">
          <StackPane.margin>
             <Insets right="20.0" top="20.0" />
          </StackPane.margin>
-         <font>
-            <Font name="Inknut Antiqua Bold" size="10.0" />
-         </font>
       </Button>
-      <Label text="Superior room with double bed and city side sofa" textFill="#105884">
+
+      <!-- Room Title -->
+      <Label fx:id="roomTitle" textFill="#105884" StackPane.alignment="TOP_LEFT">
          <font>
             <Font name="Inknut Antiqua Bold" size="16.0" />
          </font>
          <StackPane.margin>
-            <Insets right="450.0" top="140.0" />
+            <Insets left="30.0" top="140.0" />
          </StackPane.margin>
       </Label>
-      <TextArea editable="false" maxHeight="189.0" maxWidth="387.0" prefHeight="159.0" prefWidth="387.0" style="-fx-background-color: #ffffff;" text="This hotel room is a stylish and cozy space characterized by deep blue walls that create a calming ambiance. Large windows with wooden shutters allow natural light to fill the room, complemented by views of lush greenery outside. The room features a comfortable bed with fresh white linens, a soft area rug, and modern furniture, including a velvet blue armchair and a sleek gold-accented side table. Warm lighting adds to the inviting atmosphere, while small decorative touches, like houseplants and candles, enhance its charm." wrapText="true">
+
+      <!-- Room Description -->
+      <TextArea fx:id="roomDescription" editable="false" maxHeight="189.0" maxWidth="387.0"
+                prefHeight="159.0" prefWidth="387.0" style="-fx-background-color: #ffffff;"
+                wrapText="true">
          <StackPane.margin>
             <Insets right="480.0" top="380.0" />
          </StackPane.margin>
       </TextArea>
-      <Button fx:id="bookNowButton" maxHeight="45.0" mnemonicParsing="false" onAction="#detail_to_payment" prefWidth="220.0" style="-fx-background-color: #008CE3; -fx-background-radius: 69; -fx-border-radius: 69;" text="BOOK NOW" textFill="WHITE" StackPane.alignment="BOTTOM_RIGHT">
-         <StackPane.margin>
-            <Insets bottom="20.0" right="35.0" />
-         </StackPane.margin>
-         <font>
-            <Font name="Inknut Antiqua Bold" size="12.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="40.0" fitWidth="41.0" pickOnBounds="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/noun-child-care-5206622.png" />
-         </image>
-         <StackPane.margin>
-            <Insets right="200.0" top="175.0" />
-         </StackPane.margin>
-      </ImageView>
-      <ImageView fitHeight="44.0" fitWidth="40.0" pickOnBounds="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/noun-events-6765064.png" />
-         </image>
-         <StackPane.margin>
-            <Insets right="150.0" top="175.0" />
-         </StackPane.margin>
-      </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/noun-food-service-7090421.png" />
-         </image>
-         <StackPane.margin>
-            <Insets right="100.0" top="175.0" />
-         </StackPane.margin>
-      </ImageView>
-      <ImageView fitHeight="38.0" fitWidth="43.0" pickOnBounds="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/noun-lobby-7323557.png" />
-         </image>
+
+      <!-- Services Container -->
+      <FlowPane fx:id="servicesContainer" hgap="50.0" vgap="20.0" maxWidth="300.0"
+                StackPane.alignment="CENTER_RIGHT">
          <StackPane.margin>
             <Insets right="50.0" top="175.0" />
          </StackPane.margin>
-      </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/noun-park-7138546.png" />
-         </image>
+      </FlowPane>
+
+      <!-- Book Now Button -->
+      <Button fx:id="bookNowButton" maxHeight="45.0" mnemonicParsing="false"
+              prefWidth="220.0" style="-fx-background-color: #008CE3; -fx-background-radius: 69; -fx-border-radius: 69;"
+              text="BOOK NOW" textFill="WHITE" StackPane.alignment="BOTTOM_RIGHT">
          <StackPane.margin>
-            <Insets right="200.0" top="270.0" />
+            <Insets bottom="20.0" right="35.0" />
          </StackPane.margin>
-      </ImageView>
-      <ImageView fitHeight="43.0" fitWidth="40.0" pickOnBounds="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/noun-restaurant-2955152.png" />
-         </image>
-         <StackPane.margin>
-            <Insets right="100.0" top="270.0" />
-         </StackPane.margin>
-      </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/noun-secure-vault-6550269.png" />
-         </image>
-         <StackPane.margin>
-            <Insets right="50.0" top="270.0" />
-         </StackPane.margin>
-      </ImageView>
-      <ImageView fitHeight="33.0" fitWidth="38.0" pickOnBounds="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/noun-tv-7332549.png" />
-         </image>
-         <StackPane.margin>
-            <Insets right="200.0" top="360.0" />
-         </StackPane.margin>
-      </ImageView>
-      <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/noun-wifi-3144392.png" />
-         </image>
-         <StackPane.margin>
-            <Insets right="150.0" top="365.0" />
-         </StackPane.margin>
-      </ImageView>
-      <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/terrasse.png" />
-         </image>
-         <StackPane.margin>
-            <Insets right="100.0" top="365.0" />
-         </StackPane.margin>
-      </ImageView>
-      <Label text="557,55 DH" textFill="#105884" StackPane.alignment="BOTTOM_LEFT">
+      </Button>
+
+      <!-- Price Label -->
+      <Label fx:id="priceLabel" textFill="#105884" StackPane.alignment="BOTTOM_LEFT">
          <font>
             <Font name="Franklin Gothic Medium" size="16.0" />
          </font>
@@ -133,13 +73,5 @@
             <Insets bottom="20.0" left="30.0" />
          </StackPane.margin>
       </Label>
-      <ImageView fitHeight="36.0" fitWidth="44.0" pickOnBounds="true" StackPane.alignment="CENTER_RIGHT">
-         <image>
-            <Image url="@../../../homePageImages/Images/noun-pool-6211760.png" />
-         </image>
-         <StackPane.margin>
-            <Insets right="150.0" top="265.0" />
-         </StackPane.margin>
-      </ImageView>
    </children>
 </StackPane>

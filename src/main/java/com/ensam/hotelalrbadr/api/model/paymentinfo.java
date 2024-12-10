@@ -1,82 +1,92 @@
 package com.ensam.hotelalrbadr.api.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "paymentinfo")
+// This class represents the payment information in your database
+// It matches the PaymentInfo table structure exactly
 public class paymentinfo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment
-    @Column(name = "payment_id")
-    private Integer paymentId; // Primary key
-
-    @Column(name = "user_id", nullable = false)
-    private Integer userId; // Foreign key to User (if applicable)
-
-    @Column(name = "credit_card_number", nullable = false, length = 50)
-    private String creditCardNumber;
-
-    @Column(name = "expiration_date", nullable = false)
-    private LocalDate expirationDate;
-
-    @Column(name = "security_code", nullable = false, length = 50)
-    private String securityCode;
-
-    @Column(name = "billing_address", nullable = false)
-    private String billingAddress;
+    // Database fields following your schema
+    private Long payment_id;        // Primary key
+    private Long user_id;           // Foreign key to Users table
+    private String credit_card_number;
+    private LocalDate expiration_date;
+    private String security_code;
+    private String billing_address;
 
     // Default constructor
-    public paymentinfo() {
+    public paymentinfo() {}
+
+    // Full constructor for all fields except ID (which is auto-generated)
+    public paymentinfo(Long user_id, String credit_card_number, LocalDate expiration_date,
+                       String security_code, String billing_address) {
+        this.user_id = user_id;
+        this.credit_card_number = credit_card_number;
+        this.expiration_date = expiration_date;
+        this.security_code = security_code;
+        this.billing_address = billing_address;
     }
 
-    // Getters and Setters
-    public Integer getPaymentId() {
-        return paymentId;
+    // Getter and setter methods following your naming convention
+    public Long getPayment_id() {
+        return payment_id;
     }
 
-    public void setPaymentId(Integer paymentId) {
-        this.paymentId = paymentId;
+    public void setPayment_id(Long payment_id) {
+        this.payment_id = payment_id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
-    public String getCreditCardNumber() {
-        return creditCardNumber;
+    public String getCredit_card_number() {
+        return credit_card_number;
     }
 
-    public void setCreditCardNumber(String creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
+    public void setCredit_card_number(String credit_card_number) {
+        this.credit_card_number = credit_card_number;
     }
 
-    public LocalDate getExpirationDate() {
-        return expirationDate;
+    public LocalDate getExpiration_date() {
+        return expiration_date;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setExpiration_date(LocalDate expiration_date) {
+        this.expiration_date = expiration_date;
     }
 
-    public String getSecurityCode() {
-        return securityCode;
+    public String getSecurity_code() {
+        return security_code;
     }
 
-    public void setSecurityCode(String securityCode) {
-        this.securityCode = securityCode;
+    public void setSecurity_code(String security_code) {
+        this.security_code = security_code;
     }
 
-    public String getBillingAddress() {
-        return billingAddress;
+    public String getBilling_address() {
+        return billing_address;
     }
 
-    public void setBillingAddress(String billingAddress) {
-        this.billingAddress = billingAddress;
+    public void setBilling_address(String billing_address) {
+        this.billing_address = billing_address;
+    }
+
+    // Override toString() method with security in mind
+    @Override
+    public String toString() {
+        return "paymentinfo{" +
+                "payment_id=" + payment_id +
+                ", user_id=" + user_id +
+                // Only show last 4 digits of card number for security
+                ", credit_card_number='****" +
+                credit_card_number.substring(Math.max(0, credit_card_number.length() - 4)) + '\'' +
+                ", expiration_date=" + expiration_date +
+                ", billing_address='" + billing_address + '\'' +
+                // Security code is intentionally excluded for security
+                '}';
     }
 }

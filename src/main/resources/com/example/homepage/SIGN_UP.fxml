@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,8 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.homepage.Sign_Up_Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;"
+            xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ensam.hotelalrbadr.api.controller.SignUpController">
     <children>
+        <!-- Previous HBox content remains the same -->
         <HBox alignment="CENTER" layoutX="500.0" layoutY="300.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0" spacing="15.0">
@@ -30,19 +34,27 @@
                         </Label>
                         <HBox maxHeight="39.0" maxWidth="380.0" prefHeight="100.0" prefWidth="380.0" spacing="20.0">
                             <children>
-                                <TextField fx:id="firstNameField" prefHeight="39.0" prefWidth="180.0" promptText="  FIRST NAME" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #008CE3;">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin></TextField>
-                                <TextField fx:id="lastNameField" prefHeight="39.0" prefWidth="180.0" promptText="  LAST NAME" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #008CE3;" />
+                                <TextField fx:id="firstNameField" prefHeight="39.0" prefWidth="180.0" promptText="  FIRST NAME"
+                                           style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #008CE3;">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </TextField>
+                                <TextField fx:id="lastNameField" prefHeight="39.0" prefWidth="180.0" promptText="  LAST NAME"
+                                           style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #008CE3;" />
                             </children>
                             <VBox.margin>
                                 <Insets />
                             </VBox.margin>
                         </HBox>
-                        <TextField fx:id="emailField" maxHeight="39.0" maxWidth="380.0" prefHeight="39.0" promptText="  E-MAIL ADRESS" style="-fx-border-color: #008CE3; -fx-background-radius: 20; -fx-border-radius: 20;" />
-                        <TextField fx:id="passwordField" maxHeight="39.0" maxWidth="380.0" prefHeight="39.0" promptText="  PASSWORD" style="-fx-background-radius: 20; -fx-border-color: #008CE3; -fx-border-radius: 20;" />
-                        <Button fx:id="signUpButton" alignment="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="380.0" style="-fx-background-color: #008CE3; -fx-background-radius: 81; -fx-border-radius: 81;" text="SIGN UP" textFill="WHITE">
+                        <TextField fx:id="emailField" maxHeight="39.0" maxWidth="380.0" prefHeight="39.0" promptText="  E-MAIL ADRESS"
+                                   style="-fx-border-color: #008CE3; -fx-background-radius: 20; -fx-border-radius: 20;" />
+                        <PasswordField fx:id="passwordField" maxHeight="39.0" maxWidth="380.0" prefHeight="39.0" promptText="  PASSWORD"
+                                       style="-fx-background-radius: 20; -fx-border-color: #008CE3; -fx-border-radius: 20;" />
+                        <Button fx:id="signUpButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleSignUp"
+                                prefHeight="39.0" prefWidth="380.0"
+                                style="-fx-background-color: #008CE3; -fx-background-radius: 81; -fx-border-radius: 81;"
+                                text="SIGN UP" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -50,7 +62,7 @@
                         <HBox alignment="CENTER">
                             <children>
                                 <Label alignment="CENTER" text="ALREADY A MEMBER ?" />
-                                <Hyperlink fx:id="signInLink" onAction="#signup_to_signup" text="SIGN IN" />
+                                <Hyperlink fx:id="signInLink" onAction="#switchToSignIn" text="SIGN IN" />
                             </children>
                         </HBox>
                     </children>
