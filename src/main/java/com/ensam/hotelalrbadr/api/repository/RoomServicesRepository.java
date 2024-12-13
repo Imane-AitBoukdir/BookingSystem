@@ -21,7 +21,7 @@ public class RoomServicesRepository {
         String sql = """
             SELECT s.* 
             FROM services s
-            JOIN room_services rs ON s.service_id = rs.service_id
+            JOIN room_services rs ON s.id = rs.service_id
             WHERE rs.room_id = ?
         """;
 

@@ -15,6 +15,9 @@ public class Services {
         this.iconUrl = iconUrl;
     }
 
+    public Services(long serviceId, String serviceName, String description, String iconUrl) {
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;

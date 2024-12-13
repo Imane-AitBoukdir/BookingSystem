@@ -1,0 +1,45 @@
+#roomsButton, #guestsButton, #revenueButton, #bookingsButton, #dashboardButton, #adminButton, #bookingLabel{
+    -fx-text-fill: #008CE3;
+    -fx-border-color: white;
+    -fx-background-color: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+#roomsButton:hover, #guestsButton:hover, #revenueButton:hover, #bookingsButton:hover, #dashboardButton:hover, #adminButton:hover{
+    -fx-font-size: 14px;
+    -fx-text-fill: #1f1fa1;
+}
+
+#bookingLabel{
+    -fx-font-size: 30px;
+}
+
+#chooseRoomTypeLabel, #chooseServicesLabel, #roomNumberLabel, #roomNumberLabel1, #discountLabel,#promoCodeLabel, #guestNameLabel, #checkInDateLabel, #checkOutDateLabel{
+    -fx-text-fill: #14547e;
+    -fx-border-color: white;
+    -fx-background-color: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+#addRoomButton, #addPromoCodeButton{
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #008CE3;
+    -fx-background-color: #008CE3;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+}
+
+#addRoomButton:hover, #addPromoCodeButton:hover{
+    -fx-background-color: #009cff;
+}
+
+#addRoomLabel,#addPromoCode{
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}

@@ -16,7 +16,7 @@ public class PaymentInfoRepository {
     // Saves a new payment record to the database
     public void save(paymentinfo payment) {
         String sql = "INSERT INTO payment_info (user_id, credit_card_number, expiration_date, " +
-                "security_code, billing_address) VALUES (?, ?, ?, ?, ?)";
+                "security_code) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = dbConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -26,7 +26,6 @@ public class PaymentInfoRepository {
             pstmt.setString(2, payment.getCredit_card_number());
             pstmt.setDate(3, Date.valueOf(payment.getExpiration_date()));
             pstmt.setString(4, payment.getSecurity_code());
-            pstmt.setString(5, payment.getBilling_address());
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
@@ -68,7 +67,7 @@ public class PaymentInfoRepository {
 
     // Finds a specific payment by its ID
     public paymentinfo findById(Long paymentId) {
-        String sql = "SELECT * FROM payment_info WHERE payment_id = ?";
+        String sql = "SELECT * FROM payment_info WHERE id = ?";
 
         try (Connection conn = dbConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -89,7 +88,7 @@ public class PaymentInfoRepository {
     // Updates an existing payment record
     public void update(paymentinfo payment) {
         String sql = "UPDATE payment_info SET credit_card_number = ?, expiration_date = ?, " +
-                "security_code = ?, billing_address = ? WHERE payment_id = ?";
+                "security_code = ? WHERE id = ?";
 
         try (Connection conn = dbConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -97,8 +96,7 @@ public class PaymentInfoRepository {
             pstmt.setString(1, payment.getCredit_card_number());
             pstmt.setDate(2, Date.valueOf(payment.getExpiration_date()));
             pstmt.setString(3, payment.getSecurity_code());
-            pstmt.setString(4, payment.getBilling_address());
-            pstmt.setLong(5, payment.getPayment_id());
+            pstmt.setLong(4, payment.getPayment_id());
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
@@ -117,7 +115,7 @@ public class PaymentInfoRepository {
         payment.setCredit_card_number(rs.getString("credit_card_number"));
         payment.setExpiration_date(rs.getDate("expiration_date").toLocalDate());
         payment.setSecurity_code(rs.getString("security_code"));
-        payment.setBilling_address(rs.getString("billing_address"));
+        // Removed billing_address mapping
         return payment;
     }
 }
