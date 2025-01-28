@@ -26,8 +26,7 @@ L'application permet aux **clients** de réserver des chambres en fonction de la
 ## 📦 Installation et Exécution  
 1. **Cloner le dépôt**  
    ```bash
-   git clone https://github.com/ton-repo/JavaFX-Booking-System.git
-   cd JavaFX-Booking-System
+   git clone https://github.com/Imane-AitBoukdir/BookingSystem.git
    ```  
 2. **Configurer la base de données**  
    - Importer le fichier SQL dans MySQL  
