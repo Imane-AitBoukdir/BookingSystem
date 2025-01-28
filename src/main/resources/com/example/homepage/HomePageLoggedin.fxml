@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensam.hotelalrbadr.api.controller.HelloController">
+   <top>
+      <HBox prefHeight="107.0" prefWidth="1200.0" style="-fx-background-color: white; -fx-border-color: #008CE3; -fx-border-width: 2;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="88.0" prefWidth="156.0">
+               <children>
+                  <ImageView fitHeight="99.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../homePageImages/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <Pane prefHeight="94.0" prefWidth="69.0" />
+            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="525.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-border-color: #008CE3; -fx-border-radius: 50; -fx-border-width: 2;">
+               <children>
+                  <Button fx:id="homeButton" mnemonicParsing="false" stylesheets="@CSSfiles/headerStyle.css" text="HOME">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="aboutUsButton" mnemonicParsing="false" onAction="#navigateToAboutUs" stylesheets="@CSSfiles/headerStyle.css" text="ABOUT US">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="roomsButton" mnemonicParsing="false" onAction="#home_to_rooms" stylesheets="@CSSfiles/headerStyle.css" text="ROOMS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="contactUsButton" mnemonicParsing="false" onAction="#navigateToContactUs" stylesheets="@CSSfiles/headerStyle.css" text="CONTACT US">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="20.0" top="20.0" />
+               </HBox.margin>
+            </HBox>
+            <Pane prefHeight="94.0" prefWidth="213.0" />
+            <HBox alignment="CENTER" prefHeight="94.0" prefWidth="266.0">
+               <children>
+                  <Button fx:id="profileButton" mnemonicParsing="false" onAction="#navigateToPersonalInfo" prefHeight="50.0" prefWidth="228.0" stylesheets="@CSSfiles/headerStyle.css" text="Profile">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <AnchorPane prefHeight="556.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane hbarPolicy="NEVER" layoutX="13.0" prefHeight="578.0" prefWidth="1186.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <VBox prefHeight="1336.0" prefWidth="1166.0">
+                     <children>
+                        <AnchorPane prefHeight="400.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="391.0" fitWidth="1166.0" layoutY="1.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../../../homePageImages/hotel-pictures.jpg" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="welcomeLabel" layoutX="201.0" layoutY="96.0" stylesheets="@CSSfiles/headerStyle.css" text="Welcome To ALR Hotel" />
+
+                              <!-- Date Picker Section -->
+                              <VBox alignment="CENTER" layoutX="279.0" layoutY="215.0" spacing="20.0" style="-fx-background-color: rgba(255, 255, 255, 0.9); -fx-padding: 20; -fx-background-radius: 10;">
+                                 <children>
+                                    <Label text="Find Your Perfect Room" textFill="#004284">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER" spacing="20.0">
+                                       <children>
+                                          <VBox spacing="5">
+                                             <children>
+                                                <Label text="Check-in Date" textFill="#004284">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <DatePicker fx:id="checkInDatePicker" prefWidth="200.0" />
+                                             </children>
+                                          </VBox>
+                                          <VBox spacing="5">
+                                             <children>
+                                                <Label text="Check-out Date" textFill="#004284">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <DatePicker fx:id="checkOutDatePicker" prefWidth="200.0" />
+                                             </children>
+                                          </VBox>
+                                          <Button fx:id="searchButton" mnemonicParsing="false" onAction="#home_to_rooms" style="-fx-background-color: #008CE3; -fx-text-fill: white;" text="Search Rooms">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                             </padding>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+
+                        <!-- Rest of your content remains the same -->
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="viewPacksLabel" prefHeight="55.0" prefWidth="396.0" stylesheets="@CSSfiles/headerStyle.css" text="View Our Packs !" />
+                           </children>
+                        </HBox>
+
+                        <!-- Pack Cards -->
+                        <HBox alignment="CENTER" prefHeight="782.0" prefWidth="1166.0" spacing="20.0">
+                           <children>
+                              <!-- Luxury Pack -->
+                              <VBox alignment="TOP_CENTER" prefHeight="470.0" prefWidth="402.0" style="-fx-background-color: #008CE3; -fx-background-radius: 20; -fx-border-radius: 20;">
+                                 <!-- Your existing luxury pack content -->
+                                 <!-- ... -->
+                              </VBox>
+
+                              <!-- Family Pack -->
+                              <VBox alignment="TOP_CENTER" prefHeight="473.0" prefWidth="428.0" style="-fx-background-color: #008CE3; -fx-background-radius: 20; -fx-border-radius: 20;">
+                                 <!-- Your existing family pack content -->
+                                 <!-- ... -->
+                              </VBox>
+
+                              <!-- Economy Pack -->
+                              <VBox alignment="TOP_CENTER" prefHeight="727.0" prefWidth="403.0" style="-fx-background-color: #008CE3; -fx-background-radius: 20; -fx-border-radius: 20;">
+                                 <!-- Your existing economy pack content -->
+                                 <!-- ... -->
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </HBox>
+
+                        <!-- Footer -->
+                        <HBox alignment="CENTER" prefHeight="97.0" prefWidth="1166.0" style="-fx-background-color: #0b598a;">
+                           <children>
+                              <ImageView fitHeight="91.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../homePageImages/logo.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane prefHeight="129.0" prefWidth="702.0" />
+                              <Label prefHeight="18.0" prefWidth="254.0" text="\@copyright All Rights Preserved" textFill="WHITE">
+                                 <font>
+                                    <Font name="Bell MT Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>

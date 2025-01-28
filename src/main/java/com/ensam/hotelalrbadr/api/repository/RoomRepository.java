@@ -2,99 +2,99 @@ package com.ensam.hotelalrbadr.api.repository;
 
 import com.ensam.hotelalrbadr.api.config.DatabaseConfig;
 import com.ensam.hotelalrbadr.api.model.Room;
-import com.ensam.hotelalrbadr.api.model.Services;  // Updated import
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomRepository {
-    private final DatabaseConfig dbConfig;
 
-    public RoomRepository() {
-        this.dbConfig = DatabaseConfig.getInstance();
-    }
-
-    // Method to fetch all rooms from the database
-    public List<Room> findAll() {
-        List<Room> rooms = new ArrayList<>();
-        String sql = "SELECT * FROM rooms";
-
-        try (Connection conn = dbConfig.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                Room room = mapResultSetToRoom(rs);
-                // For each room, fetch its associated services
-                room.setServices(getRoomServices(room.getId()));
-                rooms.add(room);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error fetching rooms", e);
-        }
-        return rooms;
-    }
-
-    // Method to fetch rooms by category
+    // Get all rooms for a specific category (luxury, family, or economy)
     public List<Room> findByCategory(String category) {
         List<Room> rooms = new ArrayList<>();
-        String sql = "SELECT * FROM rooms WHERE category = ?";
 
-        try (Connection conn = dbConfig.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try {
+            // Get database connection
+            Connection conn = DatabaseConfig.getInstance().getConnection();
 
-            pstmt.setString(1, category);
-            ResultSet rs = pstmt.executeQuery();
+            // Create and execute query
+            String sql = "SELECT * FROM rooms WHERE category = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, category);
+            ResultSet rs = stmt.executeQuery();
 
+            // Convert each database row to a Room object
             while (rs.next()) {
-                Room room = mapResultSetToRoom(rs);
-                // For each room, fetch its associated services
-                room.setServices(getRoomServices(room.getId()));
+                Room room = new Room();
+
+                // Set basic room information
+                room.setId(rs.getLong("id"));
+                room.setName(rs.getString("name"));
+                room.setDescription(rs.getString("description"));
+                room.setPrice(rs.getDouble("price"));
+                room.setCategory(rs.getString("category"));
+
+                // Set image paths
+                room.setListViewImage(rs.getString("list_view_image"));
+                room.setDetailViewImage(rs.getString("detail_view_image"));
+                room.setReservationImage(rs.getString("reservation_image"));
+
+                // Set creation timestamp
+                room.setCreatedAt(rs.getTimestamp("created_at"));
+
+                // Add room to list
                 rooms.add(room);
             }
+
+            // Clean up resources
+            rs.close();
+            stmt.close();
+            conn.close();
+
         } catch (SQLException e) {
-            throw new RuntimeException("Error fetching rooms by category", e);
+            System.out.println("Error getting rooms: " + e.getMessage());
         }
+
         return rooms;
     }
 
-    // Helper method to map database results to Room object
-    private Room mapResultSetToRoom(ResultSet rs) throws SQLException {
-        Room room = new Room();
-        room.setId(rs.getLong("id"));
-        room.setName(rs.getString("name"));
-        room.setDescription(rs.getString("description"));
-        room.setPrice(rs.getDouble("price"));
-        room.setImageUrl(rs.getString("image_url"));
-        room.setCategory(rs.getString("category"));
-        return room;
-    }
+    // Get a single room by its ID
+    public Room findById(Long roomId) {
+        try {
+            Connection conn = DatabaseConfig.getInstance().getConnection();
 
-    // Method to fetch services associated with a room
-    private List<Services> getRoomServices(Long roomId) {
-        List<Services> services = new ArrayList<>();
-        String sql = """
-            SELECT s.* FROM services s
-            JOIN room_services rs ON s.id = rs.service_id
-            WHERE rs.room_id = ?
-        """;
+            String sql = "SELECT * FROM rooms WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setLong(1, roomId);
 
-        try (Connection conn = dbConfig.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
 
-            pstmt.setLong(1, roomId);
-            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Room room = new Room();
+                room.setId(rs.getLong("id"));
+                room.setName(rs.getString("name"));
+                room.setDescription(rs.getString("description"));
+                room.setPrice(rs.getDouble("price"));
+                room.setCategory(rs.getString("category"));
+                room.setListViewImage(rs.getString("list_view_image"));
+                room.setDetailViewImage(rs.getString("detail_view_image"));
+                room.setReservationImage(rs.getString("reservation_image"));
+                room.setCreatedAt(rs.getTimestamp("created_at"));
 
-            while (rs.next()) {
-                Services service = new Services();
-                service.setId(rs.getLong("id"));
-                service.setName(rs.getString("name"));
-                service.setIconUrl(rs.getString("icon_url"));
-                services.add(service);
+                rs.close();
+                stmt.close();
+                conn.close();
+
+                return room;
             }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+
         } catch (SQLException e) {
-            throw new RuntimeException("Error fetching room services", e);
+            System.out.println("Error finding room: " + e.getMessage());
         }
-        return services;
+
+        return null;
     }
 }

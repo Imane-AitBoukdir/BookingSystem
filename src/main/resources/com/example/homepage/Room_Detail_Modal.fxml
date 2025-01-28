@@ -7,70 +7,60 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-           prefHeight="633.0" prefWidth="940.0" style="-fx-background-color: #ffffff;"
-           xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.example.homepage.RoomDetailModalController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="940.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensam.hotelalrbadr.api.controller.RoomDetailModalController">
    <children>
-      <!-- Room Image -->
-      <ImageView fx:id="roomImage" fitHeight="349.0" fitWidth="940.0" pickOnBounds="true"
-                 StackPane.alignment="TOP_CENTER" />
-
-      <!-- Close Button -->
-      <Button fx:id="closeButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0"
-              style="-fx-background-radius: 71; -fx-border-radius: 71; -fx-background-color: #ffffff;"
-              text="X" StackPane.alignment="TOP_RIGHT">
+      <ImageView fx:id="roomImage" fitHeight="349.0" fitWidth="940.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
          <StackPane.margin>
-            <Insets right="20.0" top="20.0" />
+            <Insets />
          </StackPane.margin>
-      </Button>
+      </ImageView>
 
-      <!-- Room Title -->
       <Label fx:id="roomTitle" textFill="#105884" StackPane.alignment="TOP_LEFT">
          <font>
-            <Font name="Inknut Antiqua Bold" size="16.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
          <StackPane.margin>
-            <Insets left="30.0" top="140.0" />
+            <Insets left="30.0" top="380.0" />
          </StackPane.margin>
       </Label>
 
-      <!-- Room Description -->
-      <TextArea fx:id="roomDescription" editable="false" maxHeight="189.0" maxWidth="387.0"
-                prefHeight="159.0" prefWidth="387.0" style="-fx-background-color: #ffffff;"
-                wrapText="true">
+      <TextArea fx:id="roomDescription" editable="false" prefHeight="159.0" prefWidth="387.0" style="-fx-background-color: transparent; -fx-text-fill: #105884;" wrapText="true">
          <StackPane.margin>
-            <Insets right="480.0" top="380.0" />
+            <Insets left="30.0" right="480.0" top="450.0" />
          </StackPane.margin>
+         <font>
+            <Font size="14.0" />
+         </font>
       </TextArea>
 
-      <!-- Services Container -->
-      <FlowPane fx:id="servicesContainer" hgap="50.0" vgap="20.0" maxWidth="300.0"
-                StackPane.alignment="CENTER_RIGHT">
+      <!-- Find the existing FlowPane in your FXML file and update it to this: -->
+      <FlowPane fx:id="servicesContainer"
+                hgap="20.0"
+                vgap="20.0"
+                prefWrapLength="300.0"
+                style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-background-radius: 8;">
          <StackPane.margin>
             <Insets right="50.0" top="175.0" />
          </StackPane.margin>
       </FlowPane>
 
-      <!-- Book Now Button -->
-      <Button fx:id="bookNowButton" maxHeight="45.0" mnemonicParsing="false"
-              prefWidth="220.0" style="-fx-background-color: #008CE3; -fx-background-radius: 69; -fx-border-radius: 69;"
-              text="BOOK NOW" textFill="WHITE" StackPane.alignment="BOTTOM_RIGHT">
+      <Button fx:id="bookNowButton" maxHeight="45.0" mnemonicParsing="false" onAction="#handleBookNow" prefWidth="220.0" style="-fx-background-color: #008CE3; -fx-background-radius: 69; -fx-border-radius: 69;" text="BOOK NOW" textFill="WHITE" StackPane.alignment="BOTTOM_RIGHT">
          <StackPane.margin>
             <Insets bottom="20.0" right="35.0" />
          </StackPane.margin>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
       </Button>
 
-      <!-- Price Label -->
       <Label fx:id="priceLabel" textFill="#105884" StackPane.alignment="BOTTOM_LEFT">
          <font>
-            <Font name="Franklin Gothic Medium" size="16.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
          <StackPane.margin>
-            <Insets bottom="20.0" left="30.0" />
+            <Insets bottom="30.0" left="30.0" />
          </StackPane.margin>
       </Label>
    </children>

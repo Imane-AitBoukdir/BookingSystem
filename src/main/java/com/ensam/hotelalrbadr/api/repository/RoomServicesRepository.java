@@ -1,5 +1,3 @@
-// Path: com/ensam/hotelalrbadr/api/repository/RoomServicesRepository.java
-
 package com.ensam.hotelalrbadr.api.repository;
 
 import com.ensam.hotelalrbadr.api.config.DatabaseConfig;
@@ -8,81 +6,166 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles all database operations related to room services.
+ * It manages the relationship between rooms and their services.
+ */
 public class RoomServicesRepository {
+    // Database connection
     private final DatabaseConfig dbConfig;
 
+    /**
+     * Creates a new repository instance
+     */
     public RoomServicesRepository() {
         this.dbConfig = DatabaseConfig.getInstance();
     }
 
-    // Get all services for a specific room
-    public List<Services> findServicesByRoomId(Long roomId) {
-        List<Services> servicesList = new ArrayList<>();
-        String sql = """
-            SELECT s.* 
-            FROM services s
-            JOIN room_services rs ON s.id = rs.service_id
-            WHERE rs.room_id = ?
-        """;
+    /**
+     * Gets all services assigned to a specific room
+     *
+     * @param roomId The ID of the room
+     * @return List of services assigned to the room
+     */
+    public List<Services> getServicesForRoom(Long roomId) {
+        // SQL query to get services for a room
+        String sql =
+                "SELECT s.* " +               // Get all service fields
+                        "FROM services s " +          // From services table
+                        "JOIN room_services rs " +    // Join with room_services table
+                        "ON s.id = rs.service_id " +  // Match service IDs
+                        "WHERE rs.room_id = ? " +     // For the specified room
+                        "ORDER BY s.name";            // Sort by service name
+
+        List<Services> services = new ArrayList<>();
 
         try (Connection conn = dbConfig.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            pstmt.setLong(1, roomId);
-            ResultSet rs = pstmt.executeQuery();
+            // Set the room ID in the query
+            stmt.setLong(1, roomId);
 
+            // Execute query and get results
+            ResultSet rs = stmt.executeQuery();
+
+            // Convert each database row to a Service object
             while (rs.next()) {
-                servicesList.add(mapResultSetToService(rs));
+                services.add(createServiceFromRow(rs));
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error fetching services for room: " + e.getMessage());
+            throw new RuntimeException("Error getting services for room: " + e.getMessage(), e);
         }
-        return servicesList;
+
+        return services;
     }
 
-    // Helper method to map ResultSet to services object
-    private Services mapResultSetToService(ResultSet rs) throws SQLException {
-        return new Services(
-                rs.getLong("service_id"),
-                rs.getString("service_name"),
-                rs.getString("description"),
-                rs.getString("icon_url")
-        );
-    }
-
-    // Optional: Add service to room
-    public void addServiceToRoom(Long roomId, Long serviceId) {
+    /**
+     * Assigns a list of services to a room
+     *
+     * @param roomId The ID of the room
+     * @param serviceIds List of service IDs to assign
+     */
+    public void addServicesToRoom(Long roomId, List<Long> serviceIds) {
         String sql = "INSERT INTO room_services (room_id, service_id) VALUES (?, ?)";
 
-        try (Connection conn = dbConfig.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = dbConfig.getConnection()) {
+            // Turn off auto-commit for better performance
+            conn.setAutoCommit(false);
 
-            pstmt.setLong(1, roomId);
-            pstmt.setLong(2, serviceId);
-            pstmt.executeUpdate();
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                // Add each service to the room
+                for (Long serviceId : serviceIds) {
+                    stmt.setLong(1, roomId);
+                    stmt.setLong(2, serviceId);
+                    stmt.addBatch();
+                }
+
+                // Execute all inserts
+                stmt.executeBatch();
+                // Save changes
+                conn.commit();
+
+            } catch (SQLException e) {
+                // If something goes wrong, undo changes
+                conn.rollback();
+                throw e;
+            }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error adding service to room: " + e.getMessage());
+            throw new RuntimeException("Error adding services to room: " + e.getMessage(), e);
         }
     }
 
-    // Optional: Remove service from room
-    public void removeServiceFromRoom(Long roomId, Long serviceId) {
-        String sql = "DELETE FROM room_services WHERE room_id = ? AND service_id = ?";
+    /**
+     * Removes all services from a room and assigns new ones
+     *
+     * @param roomId The ID of the room
+     * @param serviceIds List of new service IDs to assign
+     */
+    public void updateRoomServices(Long roomId, List<Long> serviceIds) {
+        try (Connection conn = dbConfig.getConnection()) {
+            conn.setAutoCommit(false);
 
-        try (Connection conn = dbConfig.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try {
+                // First, remove all existing services
+                removeAllServicesFromRoom(conn, roomId);
 
-            pstmt.setLong(1, roomId);
-            pstmt.setLong(2, serviceId);
-            pstmt.executeUpdate();
+                // Then, add the new services
+                if (!serviceIds.isEmpty()) {
+                    addNewServicesToRoom(conn, roomId, serviceIds);
+                }
+
+                // Save all changes
+                conn.commit();
+
+            } catch (SQLException e) {
+                // If something goes wrong, undo changes
+                conn.rollback();
+                throw e;
+            }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error removing service from room: " + e.getMessage());
+            throw new RuntimeException("Error updating room services: " + e.getMessage(), e);
         }
+    }
+
+    /**
+     * Removes all services from a room
+     */
+    private void removeAllServicesFromRoom(Connection conn, Long roomId) throws SQLException {
+        String sql = "DELETE FROM room_services WHERE room_id = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, roomId);
+            stmt.executeUpdate();
+        }
+    }
+
+    /**
+     * Adds new services to a room
+     */
+    private void addNewServicesToRoom(Connection conn, Long roomId, List<Long> serviceIds) throws SQLException {
+        String sql = "INSERT INTO room_services (room_id, service_id) VALUES (?, ?)";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            for (Long serviceId : serviceIds) {
+                stmt.setLong(1, roomId);
+                stmt.setLong(2, serviceId);
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+        }
+    }
+
+    /**
+     * Creates a Service object from a database row
+     */
+    private Services createServiceFromRow(ResultSet rs) throws SQLException {
+        Services service = new Services();
+        service.setId(rs.getLong("id"));
+        service.setName(rs.getString("name"));
+        service.setIconUrl(rs.getString("icon_url"));
+        return service;
     }
 }

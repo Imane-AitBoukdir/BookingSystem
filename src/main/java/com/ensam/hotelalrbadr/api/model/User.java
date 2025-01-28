@@ -1,18 +1,17 @@
 package com.ensam.hotelalrbadr.api.model;
 
 public class User {
+    // Basic fields matching the database
     private Long id;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-    private String phoneNumber;
     private String role;
 
-    // Default constructor
+    // Simple constructor
     public User() {
-        this.role = "customer";
-        this.phoneNumber = "-";// Set default role
+        this.role = "customer";  // Set default role
     }
 
     // Getters and Setters
@@ -54,14 +53,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public String getRole() {

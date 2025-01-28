@@ -24,7 +24,7 @@
                     <children>
                         <ImageView fitHeight="125.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../homePageImages/Images/Logo.png" />
+                                <Image url="@../../../homePageImages/Services/Logo.png" />
                             </image>
                         </ImageView>
                         <Label text="SIGN UP" textFill="#105884">
@@ -69,7 +69,7 @@
                 </VBox>
                 <ImageView fitHeight="700.0" fitWidth="600.0" pickOnBounds="true">
                     <image>
-                        <Image url="@../../../homePageImages/Images/Untitled-3.png" />
+                        <Image url="@../../../homePageImages/Services/Untitled-3.png" />
                     </image>
                 </ImageView>
             </children>

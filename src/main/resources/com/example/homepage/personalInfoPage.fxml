@@ -3,96 +3,132 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensam.hotelalrbadr.api.controller.PersonalInfoController">
+   <!-- Header Section -->
+   <top>
+      <HBox prefHeight="107.0" prefWidth="1200.0" style="-fx-background-color: white; -fx-border-color: #008CE3; -fx-border-width: 2;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="88.0" prefWidth="156.0">
+               <children>
+                  <ImageView fitHeight="99.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../homePageImages/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <Pane prefHeight="94.0" prefWidth="69.0" />
+            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="525.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-border-color: #008CE3; -fx-border-radius: 50; -fx-border-width: 2;">
+               <children>
+                  <Button fx:id="homeButton" mnemonicParsing="false" onAction="#navigateToHome" stylesheets="@CSSfiles/headerStyle.css" text="HOME">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="aboutUsButton" mnemonicParsing="false" stylesheets="@CSSfiles/headerStyle.css" text="ABOUT US">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="roomsButton" mnemonicParsing="false" onAction="#home_to_rooms" stylesheets="@CSSfiles/headerStyle.css" text="ROOMS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="servicesButton" mnemonicParsing="false" stylesheets="@CSSfiles/headerStyle.css" text="SERVICES">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="contactUsButton" mnemonicParsing="false" stylesheets="@CSSfiles/headerStyle.css" text="CONTACT US">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="20.0" top="20.0" />
+               </HBox.margin>
+            </HBox>
+            <Pane prefHeight="94.0" prefWidth="213.0" />
+            <Pane prefHeight="94.0" prefWidth="266.0" />
+         </children>
+      </HBox>
+   </top>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.homepage.PersonalInfoPage">
-   <children>
-      <Label fx:id="title" layoutX="152.0" layoutY="-3.0" stylesheets="@CSSfiles/personnalInfoPage.css" text="Your Personnal Space" />
-      <VBox alignment="CENTER" layoutX="145.0" layoutY="109.0" prefHeight="575.0" prefWidth="498.0" spacing="20.0" style="-fx-background-color: #C4D9F6FF; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: white;">
-         <children>
-            <Label prefHeight="27.0" prefWidth="372.0" text="Your First Name:" textFill="#0026b1">
+   <!-- Main Content -->
+   <center>
+      <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #F5F5F5;">
+         <padding>
+            <Insets bottom="20" left="20" right="20" top="50" />
+         </padding>
+
+         <!-- Account Section -->
+         <HBox alignment="CENTER" spacing="608">
+            <VBox.margin>
+               <Insets top="20" />
+            </VBox.margin>
+            <Label style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #1a365d;" text="Your Account" />
+            <Button fx:id="signOutButton" mnemonicParsing="false" onAction="#handleSignOut" prefHeight="33.0" prefWidth="147.0" style="-fx-background-color: #008CE3; -fx-background-radius: 25;" text="Sign Out" textFill="WHITE">
                <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-            </Label>
-            <Label prefHeight="44.0" prefWidth="462.0" style="-fx-background-color: white; -fx-border-color: #008CE3; -fx-border-radius: 20; -fx-border-image-width: 10; -fx-background-radius: 20;" text="User First Name" textFill="#5c6fa9">
-               <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <Label prefHeight="18.0" prefWidth="375.0" text="Your Last Name:" textFill="#0026b1">
-               <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-            </Label>
-            <Label prefHeight="37.0" prefWidth="458.0" style="-fx-background-color: white; -fx-border-color: #008CE3; -fx-border-radius: 20; -fx-border-image-width: 10; -fx-background-radius: 20;" text="User Last Name" textFill="#5c6fa9">
-               <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <Label prefHeight="18.0" prefWidth="378.0" text="Email adress:" textFill="#0026b1">
-               <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-            </Label>
-            <Label prefHeight="37.0" prefWidth="462.0" style="-fx-background-color: white; -fx-border-color: #008CE3; -fx-border-radius: 20; -fx-border-image-width: 10; -fx-background-radius: 20;" text="Email adress" textFill="#5c6fa9">
-               <font>
-                  <Font name="Arial Black" size="17.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <Label prefHeight="27.0" prefWidth="373.0" text="PassWord:" textFill="#0026b1">
-               <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-            </Label>
-            <Label prefHeight="37.0" prefWidth="459.0" style="-fx-background-color: white; -fx-border-color: #008CE3; -fx-border-radius: 20; -fx-border-image-width: 10; -fx-background-radius: 20;" text="PassWord" textFill="#5c6fa9">
-               <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <Label prefHeight="27.0" prefWidth="372.0" text="Your Phone Number" textFill="#0026b1">
-               <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-            </Label>
-            <Label prefHeight="44.0" prefWidth="462.0" style="-fx-background-color: white; -fx-border-color: #008CE3; -fx-border-radius: 20; -fx-border-image-width: 10; -fx-background-radius: 20;" text="User Phone Number" textFill="#5c6fa9">
-               <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
-         </children>
-      </VBox>
-      <VBox fx:id="VboxBackground" alignment="CENTER" layoutX="622.0" layoutY="17.0" prefHeight="662.0" prefWidth="566.0" spacing="20.0" stylesheets="@CSSfiles/personnalInfoPage.css">
-         <children>
-            <Button fx:id="ModificationPageButton" mnemonicParsing="false" prefHeight="78.0" prefWidth="334.0" stylesheets="@CSSfiles/personnalInfoPage.css" text="Modification Page">
-               <font>
-                  <Font size="19.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="ViewMyReservationButton" mnemonicParsing="false" prefHeight="78.0" prefWidth="333.0" stylesheets="@CSSfiles/personnalInfoPage.css" text="View My Reservations">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
-         </children>
+         </HBox>
+
+         <!-- Personal Information Title -->
+         <Label style="-fx-font-size: 36; -fx-font-weight: bold; -fx-text-fill: #000000;" text="Personal Information">
+            <VBox.margin>
+               <Insets bottom="20" top="20" />
+            </VBox.margin>
+            <font>
+               <Font size="30.0" />
+            </font>
+         </Label>
+
+         <!-- Form Fields -->
+         <HBox alignment="CENTER" spacing="20">
+            <!-- First Name Field -->
+            <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
+               <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #0066cc;" text="First Name" />
+               <TextField fx:id="firstNameField" editable="false" prefWidth="400" style="-fx-background-color: white;">
+                  <font>
+                     <Font size="14" />
+                  </font>
+               </TextField>
+            </VBox>
+
+            <!-- Last Name Field -->
+            <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
+               <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #0066cc;" text="Last Name" />
+               <TextField fx:id="lastNameField" editable="false" prefWidth="400" style="-fx-background-color: white;">
+                  <font>
+                     <Font size="14" />
+                  </font>
+               </TextField>
+            </VBox>
+         </HBox>
+
+         <HBox alignment="CENTER" spacing="20">
+            <!-- Email Field -->
+            <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
+               <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #0066cc;" text="Email Address" />
+               <TextField fx:id="emailField" editable="false" prefWidth="400" style="-fx-background-color: white;">
+                  <font>
+                     <Font size="14" />
+                  </font>
+               </TextField>
+            </VBox>
+         </HBox>
       </VBox>
-   </children>
-</AnchorPane>
+   </center>
+</BorderPane>

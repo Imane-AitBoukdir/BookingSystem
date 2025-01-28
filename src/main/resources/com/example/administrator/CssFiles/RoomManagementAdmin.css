@@ -1,0 +1,65 @@
+#nameLabel, #imageLabel, #priceLabel, #numberLabel, #services,#roomNameLabelDelete{
+    -fx-text-fill: #008CE3;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+#roomManagementLabel{
+    -fx-text-fill: #008CE3;
+    -fx-font-size: 30px;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+#addRoomLabel, #deleteRoomLabel{
+    -fx-text-fill: #106893;
+    -fx-font-size: 15px;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+#addButton, #deleteButton{
+    -fx-text-fill: white;
+    -fx-border-color: #008CE3;
+    -fx-background-color: #008CE3;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+}
+
+#addButton:hover, #deleteButton:hover{
+    -fx-text-fill: white;
+    -fx-border-color: #008CE3;
+    -fx-background-color: #0169a6;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+}
+
+#signOutButton{
+    -fx-text-fill: white;
+    -fx-border-color: #074463;
+    -fx-background-color: #074463;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+}
+
+#signOutButton:hover{
+    -fx-text-fill: white;
+    -fx-border-color: rgba(31, 81, 197, 0.49);
+    -fx-background-color: #0a6298;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+}
+
+
+

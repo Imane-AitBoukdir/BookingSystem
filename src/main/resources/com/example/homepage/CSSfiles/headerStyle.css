@@ -1,4 +1,4 @@
-#homeButton, #aboutUsButton, #contactUsButton, #roomsButton, #servicesButton {
+#homeButton, #aboutUsButton, #contactUsButton, #roomsButton, #servicesButton, #reservationsButton{
     -fx-text-fill: #008CE3;
     -fx-border-color: white;
     -fx-background-color: white;
@@ -19,7 +19,7 @@
 
 
 
-#homeButton:hover, #aboutUsButton:hover, #contactUsButton:hover, #roomsButton:hover, #servicesButton:hover{
+#homeButton:hover, #aboutUsButton:hover, #contactUsButton:hover, #roomsButton:hover, #servicesButton:hover, #reservationsButton:hover{
     -fx-font-size: 14px;
     -fx-text-fill: #1f1fa1;
 
@@ -31,3 +31,86 @@
     -fx-background-color: #2727a1;
 }
 
+#welcomeLabel {
+    -fx-font-family: "Bookman Old Style";
+    -fx-font-size: 75px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.5, 2, 2);
+    -fx-alignment: center;
+}
+
+#searchBody{
+    -fx-text-fill: white;
+    -fx-border-color: #008CE3;
+    -fx-background-color: #008CE3;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-font-size: 12px
+}
+#searchBody:hover{
+    -fx-background-color: #2727a1;
+    -fx-font-size: 12px;
+}
+
+#departField, #arriveeField {
+    -fx-border-color: #008CE3f;
+    -fx-background-color: #008CE3;
+    -fx-font-family: "Arial Black";
+
+}
+
+#destinationField{
+    -fx-border-color: #008CE3;
+
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Arial Black";
+}
+
+#welcomeLabel {
+    -fx-font-family: "Bookman Old Style";
+    -fx-font-size: 75px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.5, 2, 2);
+    -fx-alignment: center;
+}
+
+#searchBody{
+    -fx-text-fill: white;
+    -fx-border-color: #008CE3;
+    -fx-background-color: #008CE3;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-font-size: 12px
+}
+#searchBody:hover{
+    -fx-background-color: #2727a1;
+    -fx-font-size: 12px;
+}
+
+#departField, #arriveeField {
+    -fx-border-color: #008CE3f;
+    -fx-background-color: #008CE3;
+    -fx-font-family: "Arial Black";
+
+}
+
+#destinationField{
+    -fx-border-color: #008CE3;
+
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-font-family: "Arial Black";
+}
+
+#viewPacksLabel{
+    -fx-font-family: "Bookman Old Style";
+    -fx-font-size: 30px;
+    -fx-text-fill: #0b598a;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}

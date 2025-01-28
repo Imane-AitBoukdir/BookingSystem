@@ -11,63 +11,87 @@ public class UserRepository {
         this.dbConfig = DatabaseConfig.getInstance();
     }
 
-    public User findByEmail(String email) {  // Change return type to User
+    public User findByEmail(String email) {
         String sql = "SELECT * FROM users WHERE email = ?";
+
         try (Connection conn = dbConfig.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, email);
-            try (ResultSet rs = pstmt.executeQuery()) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email.toLowerCase());
+
+            try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    User user = new User();
-                    user.setId(rs.getLong("id"));
-                    user.setFirstName(rs.getString("first_name"));
-                    user.setLastName(rs.getString("last_name"));
-                    user.setEmail(rs.getString("email"));
-                    user.setPassword(rs.getString("password"));
-                    return user;
+                    return mapResultSetToUser(rs);
                 }
             }
+            return null;
+
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error finding user by email", e);
+            throw new RuntimeException("Error finding user by email: " + e.getMessage(), e);
         }
-        return null;
     }
 
     public void save(User user) {
-        String sql = "INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO users (first_name, last_name, email, password, role) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = dbConfig.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Debug logs
-            System.out.println("Attempting to save user:");
-            System.out.println("First Name: " + user.getFirstName());
-            System.out.println("Last Name: " + user.getLastName());
-            System.out.println("Email: " + user.getEmail());
+            stmt.setString(1, user.getFirstName());
+            stmt.setString(2, user.getLastName());
+            stmt.setString(3, user.getEmail().toLowerCase());
+            stmt.setString(4, user.getPassword());
+            stmt.setString(5, "customer"); // Default role for new users
 
-            pstmt.setString(1, user.getFirstName());
-            pstmt.setString(2, user.getLastName());
-            pstmt.setString(3, user.getEmail());
-            pstmt.setString(4, user.getPassword());
+            int affectedRows = stmt.executeUpdate();
 
-            int affectedRows = pstmt.executeUpdate();
-            System.out.println("Affected rows: " + affectedRows);
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
 
-            if (affectedRows > 0) {
-                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        user.setId(generatedKeys.getLong(1));
-                        System.out.println("Generated ID: " + user.getId());
-                    }
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    user.setId(generatedKeys.getLong(1));
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
                 }
             }
+
         } catch (SQLException e) {
-            System.err.println("Database error: " + e.getMessage());
-            System.err.println("SQL State: " + e.getSQLState());
-            System.err.println("Error Code: " + e.getErrorCode());
-            e.printStackTrace();
-            throw new RuntimeException("Error saving user", e);
+            throw new RuntimeException("Error saving user: " + e.getMessage(), e);
         }
+    }
+
+    public User findById(Long id) {
+        String sql = "SELECT * FROM users WHERE id = ?";
+
+        try (Connection conn = dbConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToUser(rs);
+                }
+            }
+            return null;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding user by ID: " + e.getMessage(), e);
+        }
+    }
+
+    private User mapResultSetToUser(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getLong("id"));
+        user.setFirstName(rs.getString("first_name"));
+        user.setLastName(rs.getString("last_name"));
+        user.setEmail(rs.getString("email"));
+        user.setPassword(rs.getString("password"));
+        user.setRole(rs.getString("role"));
+        // Note: created_at is handled automatically by MySQL
+        return user;
     }
 }

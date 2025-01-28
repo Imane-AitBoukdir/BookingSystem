@@ -6,10 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.event.ActionEvent;
+import javafx.stage.Stage;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -18,6 +17,8 @@ public class SignUpController {
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
+    @FXML private Button signUpButton;
+    @FXML private Hyperlink signInLink;
 
     private final UserRepository userRepository;
 
@@ -26,69 +27,109 @@ public class SignUpController {
     }
 
     @FXML
-    private void handleSignUp(ActionEvent event) {
+    private void handleSignUp() {
         try {
-            // Validate input
-            if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty() ||
-                    emailField.getText().isEmpty() || passwordField.getText().isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, "Error", "All fields are required!");
+            // Get and trim input values
+            String firstName = firstNameField.getText().trim();
+            String lastName = lastNameField.getText().trim();
+            String email = emailField.getText().trim();
+            String password = passwordField.getText();
+
+            if (!validateInput(firstName, lastName, email, password)) {
                 return;
             }
 
             // Check if email already exists
-            if (userRepository.findByEmail(emailField.getText().trim()) != null) {
-                showAlert(Alert.AlertType.ERROR, "Error", "Email already registered!");
+            if (userRepository.findByEmail(email) != null) {
+                showError("Registration Error", "This email is already registered");
                 return;
             }
 
-            // Create and save user
-            User user = new User();
-            user.setFirstName(firstNameField.getText().trim());
-            user.setLastName(lastNameField.getText().trim());
-            user.setEmail(emailField.getText().trim());
-            user.setPassword(hashPassword(passwordField.getText()));
+            // Create new user with hashed password
+            User newUser = new User();
+            newUser.setFirstName(firstName);
+            newUser.setLastName(lastName);
+            newUser.setEmail(email);
+            newUser.setPassword(hashPassword(password));
 
-            userRepository.save(user);
+            // Save user to database
+            userRepository.save(newUser);
 
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Registration successful!");
-            switchToSignIn(event);
+            showSuccess("Registration Successful",
+                    "Welcome " + firstName + "! You can now sign in with your email and password.");
+            switchToSignIn();
 
+        } catch (NoSuchAlgorithmException e) {
+            showError("System Error", "Could not process registration. Please try again.");
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            showError("Validation Error", e.getMessage());
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Registration failed: " + e.getMessage());
+            showError("Registration Error", "An unexpected error occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    private String hashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] hashedBytes = md.digest(password.getBytes());
-        StringBuilder sb = new StringBuilder();
-        for (byte b : hashedBytes) {
-            sb.append(String.format("%02x", b));
+    private boolean validateInput(String firstName, String lastName, String email, String password) {
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            showError("Validation Error", "Please fill in all fields");
+            return false;
         }
-        return sb.toString();
+
+        if (!email.contains("@")) {
+            showError("Validation Error", "Please enter a valid email address");
+            return false;
+        }
+
+        if (password.length() < 6) {
+            showError("Validation Error", "Password must be at least 6 characters long");
+            return false;
+        }
+
+        if (!firstName.matches("[a-zA-Z\\s]+") || !lastName.matches("[a-zA-Z\\s]+")) {
+            showError("Validation Error", "Names can only contain letters and spaces");
+            return false;
+        }
+
+        return true;
     }
 
-    private void showAlert(Alert.AlertType type, String title, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
+    private String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(password.getBytes());
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
+
+    @FXML
+    private void switchToSignIn() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/homepage/SIGN_IN.fxml"));
+            Stage stage = (Stage) firstNameField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            showError("Navigation Error", "Could not load sign-in page: " + e.getMessage());
+        }
+    }
+
+    private void showError(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
     }
 
-    @FXML
-    private void switchToSignIn(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/homepage/SIGN_IN.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "Error loading sign-in page: " + e.getMessage());
-        }
+    private void showSuccess(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

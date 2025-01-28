@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.homepage.RoomsController">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensam.hotelalrbadr.api.controller.RoomsController">
    <content>
       <VBox alignment="TOP_CENTER" prefHeight="1180.0" prefWidth="1200.0">
          <children>
+            <HBox prefHeight="101.0" prefWidth="1200.0">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../homePageImages/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="90.0" prefWidth="161.0" />
+                  <HBox alignment="CENTER" prefHeight="90.0" prefWidth="511.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-border-color: #008CE3; -fx-border-radius: 50; -fx-border-width: 2;">
+                     <children>
+                        <Button fx:id="homeButton" mnemonicParsing="false" onAction="#navigateToHome" stylesheets="@CSSfiles/roomsPage.css" text="HOME" />
+                        <Button fx:id="aboutUsButton" mnemonicParsing="false" onAction="#navigateToAboutUs" stylesheets="@CSSfiles/roomsPage.css" text="ABOUT US" />
+                        <Button fx:id="roomsButton" mnemonicParsing="false" stylesheets="@CSSfiles/roomsPage.css" text="ROOMS" />
+                        <Button fx:id="contactUsButton" mnemonicParsing="false" onAction="#navigateToContactUs" stylesheets="@CSSfiles/roomsPage.css" text="CONTACT US" />
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+            </HBox>
             <!-- Main Title -->
             <Label fx:id="RoomsTitle" stylesheets="@CSSfiles/roomsPage.css" text="View Our Rooms">
                <font>
